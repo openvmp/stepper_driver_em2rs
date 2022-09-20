@@ -18,22 +18,24 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/int32.hpp"
 #include "stepper_driver/interface.hpp"
-#include "stepper_driver_rs485_so/node.hpp"
 
 namespace stepper_driver_rs485_so {
 
-class StepperDriverRS485SOInterface final
+class Node;
+
+class StepperDriverRS485SOInterface
     : public stepper_driver::StepperDriverInterface {
  public:
   StepperDriverRS485SOInterface(Node *node,
                                 const std::string &interface_prefix);
+  virtual ~StepperDriverRS485SOInterface() {}
 
- private:
-  virtual void param_ppr_get_handler_(
+ protected:
+  void param_ppr_get_handler_(
       const std::shared_ptr<stepper_driver::srv::ParamPprGet::Request> request,
       std::shared_ptr<stepper_driver::srv::ParamPprGet::Response> response)
       override;
-  virtual void param_ppr_set_handler_(
+  void param_ppr_set_handler_(
       const std::shared_ptr<stepper_driver::srv::ParamPprSet::Request> request,
       std::shared_ptr<stepper_driver::srv::ParamPprSet::Response> response)
       override;

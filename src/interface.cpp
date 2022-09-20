@@ -15,7 +15,7 @@ namespace stepper_driver_rs485_so {
 
 StepperDriverRS485SOInterface::StepperDriverRS485SOInterface(
     Node *node, const std::string &interface_prefix)
-    : StepperDriverInterface(node, interface_prefix) {}
+    : StepperDriverInterface((rclcpp::Node *)node, interface_prefix) {}
 
 void StepperDriverRS485SOInterface::param_ppr_get_handler_(
     const std::shared_ptr<stepper_driver::srv::ParamPprGet::Request> request,
