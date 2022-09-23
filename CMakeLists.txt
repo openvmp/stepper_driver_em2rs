@@ -16,11 +16,13 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(stepper_driver REQUIRED)
 find_package(serial REQUIRED)
+find_package(modbus_rtu REQUIRED)
 
 # Logic shared by all targets
 include_directories(
   include
   ${serial_INCLUDE_DIRS}
+  ${modbus_rtu_INCLUDE_DIRS}
   ${stepper_driver_INCLUDE_DIRS}
 )
 
@@ -31,14 +33,16 @@ set(project_SOURCE_FILES
 
 set(project_LIBRARIES
   ${rclcpp_LIBRARIES}
+  ${modbus_rtu_LIBRARIES}
   ${stepper_driver_LIBRARIES}
 )
 
 set(project_DEPENDENCIES
   rclcpp
   std_msgs
-  stepper_driver
   serial
+  modbus_rtu
+  stepper_driver
 )
 
 # Executable target
