@@ -1,6 +1,6 @@
 # OpenVMP
 
-[![Licence](license.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License](license.svg)](LICENSE.txt)
 
 ## ROS2 package for RS485 stepper motor drivers by STEPPERONLINE
 

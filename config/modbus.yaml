@@ -1,0 +1,84 @@
+holding_registers:
+    - addr: 0x0001
+      name: ppr
+      alt_names:
+        - Pr0.00
+        - Pulse/revolution
+        - Microstep
+      value:
+        min: 200
+        max: 51200
+        default: 10000
+    - addr: 0x0007
+      name: dir
+      alt_names:
+        - Pr0.03
+        - Motor direction
+      comment: "0: CW, 1: CCW"
+      value:
+        min: 0
+        max: 1
+        default: 0
+    - addr: 0x0157
+      name: do1
+      alt_names:
+        - Pr4.11
+        - Digital output 1
+      comment: >
+        Default is normal-open(N.O) type,
+        it can be set to normal-closed(N.C) type
+        by setting the corresponding port +0x80
+
+        0: invalid;
+        0x20: command completed;
+        0x21: path completed;
+        0x22: homing completed;
+        0x23: in-position completed;
+        0x24: brake output;
+        0x25: alarm output;
+      value:
+        min: 0
+        max: 65535
+        default: 0
+    - addr: 0x0167
+      name: brake_delay_release
+      alt_names:
+        - Pr4.19
+        - Delay of brake released
+      comment: Keep default normally
+      value:
+        min: 0
+        max: 1500
+        default: 250
+      units: ms
+    - addr: 0x0169
+      name: brake_delay_lock
+      alt_names:
+        - Pr4.20
+        - Delay of brake locked
+      comment: Keep default normally
+      value:
+        min: 0
+        max: 1500
+        default: 250
+      units: ms
+    - addr: 0x016B
+      name: brake_locking_velocity_threshold
+      alt_names:
+        - Pr4.21
+        - Threshold value of brake locking velocity
+      comment: Keep default normally
+      value:
+        min: 0
+        max: 500
+        default: 10
+    - addr: 0x1801
+      name: control
+      alt_names:
+        - Control word
+      comment: The related function is started by sending the control word
+      min_delay_ms: 50
+      value:
+        jog_cw: 0x4001
+        jog_ccw: 0x4002
+        default: 10

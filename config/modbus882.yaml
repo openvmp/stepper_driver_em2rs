@@ -1,0 +1,11 @@
+holding_registers:
+    - addr: 0x0191
+      name: peak_current
+      alt_names:
+        - Pr5.00
+        - Peak current
+      comment: Approximately equal to motor phase current value multiplied by 1.4
+      value:
+        min: 0
+        max: 82
+        default: 10

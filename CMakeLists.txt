@@ -14,14 +14,14 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(stepper_driver REQUIRED)
-find_package(serial REQUIRED)
 find_package(modbus_rtu REQUIRED)
+find_package(stepper_driver REQUIRED)
 
 # Logic shared by all targets
 include_directories(
   include
   ${serial_INCLUDE_DIRS}
+  ${modbus_INCLUDE_DIRS}
   ${modbus_rtu_INCLUDE_DIRS}
   ${stepper_driver_INCLUDE_DIRS}
 )
@@ -33,20 +33,21 @@ set(project_SOURCE_FILES
 
 set(project_LIBRARIES
   ${rclcpp_LIBRARIES}
+  ${modbus_LIBRARIES}
   ${modbus_rtu_LIBRARIES}
+  ${modbus_rtu_native_LIBRARIES}
   ${stepper_driver_LIBRARIES}
+  ${stepper_driver_native_LIBRARIES}
 )
 
 set(project_DEPENDENCIES
   rclcpp
-  std_msgs
-  serial
   modbus_rtu
   stepper_driver
 )
 
 # Executable target
-add_executable(${PROJECT_NAME}_standalone src/main.cpp  ${project_SOURCE_FILES})
+add_executable(${PROJECT_NAME}_standalone src/main.cpp ${project_SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME}_standalone ${project_LIBRARIES})
 ament_target_dependencies(${PROJECT_NAME}_standalone ${project_DEPENDENCIES})
 install(TARGETS
@@ -58,10 +59,10 @@ install(TARGETS
 add_library(${PROJECT_NAME}_native ${project_SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME}_native ${project_LIBRARIES})
 ament_target_dependencies(${PROJECT_NAME}_native ${project_DEPENDENCIES})
-ament_export_dependencies(rclcpp stepper_driver serial)
+ament_export_dependencies(${project_DEPENDENCIES} ${modbus_rtu_DEPENDENCIES} ${stepper_driver_DEPENDENCIES})
 install(TARGETS
   ${PROJECT_NAME}_native
-  DESTINATION lib/${PROJECT_NAME}
+  DESTINATION lib
 )
 
 

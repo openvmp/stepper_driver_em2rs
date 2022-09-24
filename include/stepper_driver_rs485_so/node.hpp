@@ -26,13 +26,6 @@ class Node : public rclcpp::Node {
   Node();
 
  private:
-  // node parameters
-  rclcpp::Parameter prefix_;
-  // Modbus RTU option #1: ROS2 interface config
-  rclcpp::Parameter rtu_interface_prefix_;
-  // Modbus RTU option #2: Native API config
-  serial::PortSettings rtu_port_settings_;
-
   std::shared_ptr<StepperDriverRS485SOInterface> intf_;
 };
 
