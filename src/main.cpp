@@ -13,9 +13,12 @@
 
 int main(int argc, char **argv) {
   rclcpp::init(argc, argv);
-  auto rtu_node = std::make_shared<modbus_rtu::Node>();
   auto node = std::make_shared<stepper_driver_rs485_so::Node>();
-  rclcpp::spin(node);
+
+  rclcpp::executors::MultiThreadedExecutor exec;
+  exec.add_node(node);
+  exec.spin();
+
   rclcpp::shutdown();
   return 0;
 }

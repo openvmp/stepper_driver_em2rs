@@ -12,8 +12,7 @@
 namespace stepper_driver_rs485_so {
 
 Node::Node() : rclcpp::Node::Node("stepper_driver_rs485_so") {
-  intf_ = std::shared_ptr<StepperDriverRS485SOInterface>(
-      new StepperDriverRS485SOInterface(this));
+  intf_ = std::make_shared<StepperDriverRS485SOInterface>(this);
 }
 
 }  // namespace stepper_driver_rs485_so

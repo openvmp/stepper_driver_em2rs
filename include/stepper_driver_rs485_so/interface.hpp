@@ -13,7 +13,7 @@
 #include <memory>
 #include <string>
 
-#include "modbus_rtu/interface.hpp"
+#include "modbus/interface.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/int32.hpp"
 #include "stepper_driver/interface.hpp"
@@ -27,7 +27,6 @@ class StepperDriverRS485SOInterface
   virtual ~StepperDriverRS485SOInterface() {}
 
   rclcpp::Parameter param_model;
-  rclcpp::Parameter param_leaf_id;
 
  protected:
   void param_ppr_get_handler_(
@@ -40,7 +39,7 @@ class StepperDriverRS485SOInterface
       override;
 
  private:
-  modbus_rtu::ModbusRtuInterface prov_;
+  std::shared_ptr<modbus::Interface> prov_;
 };
 
 }  // namespace stepper_driver_rs485_so

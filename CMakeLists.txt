@@ -14,6 +14,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(modbus REQUIRED)
 find_package(modbus_rtu REQUIRED)
 find_package(stepper_driver REQUIRED)
 

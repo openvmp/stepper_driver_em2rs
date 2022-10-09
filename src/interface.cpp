@@ -11,12 +11,19 @@
 
 #include <locale>
 
+#include "modbus_rtu/factory.hpp"
 #include "stepper_driver_rs485_so/node.hpp"
 
 namespace stepper_driver_rs485_so {
 
 StepperDriverRS485SOInterface::StepperDriverRS485SOInterface(rclcpp::Node *node)
-    : StepperDriverInterface(node), prov_(node) {
+    : StepperDriverInterface(node) {
+  prov_ = modbus_rtu::Factory::New(node);
+
+  RCLCPP_DEBUG(node_->get_logger(),
+               "StepperDriverRS485SOInterface::StepperDriverRS485SOInterface():"
+               " started");
+
   node->declare_parameter("stepper_driver_model", "dm556rs");
   node->get_parameter("stepper_driver_model", param_model);
   std::string model = param_model.as_string();
@@ -24,28 +31,39 @@ StepperDriverRS485SOInterface::StepperDriverRS485SOInterface(rclcpp::Node *node)
     c = tolower(c);
   }
 
-  node->declare_parameter("stepper_driver_rs485_leaf_id", 1);
-  node->get_parameter("stepper_driver_rs485_leaf_id", param_leaf_id);
-  uint16_t leaf_id = param_leaf_id.as_int();
-
-  prov_.generate_modbus_mappings(leaf_id, interface_prefix_.as_string(),
-                                 "config/modbus.yaml");
+  prov_->generate_modbus_mappings(interface_prefix_.as_string(),
+                                  "config/modbus.yaml");
   if (model == "dm556rs") {
-    prov_.generate_modbus_mappings(leaf_id, interface_prefix_.as_string(),
-                                   "config/modbus556.yaml");
+    prov_->generate_modbus_mappings(interface_prefix_.as_string(),
+                                    "config/modbus556.yaml");
   } else if (model == "dm882rs") {
-    prov_.generate_modbus_mappings(leaf_id, interface_prefix_.as_string(),
-                                   "config/modbus882.yaml");
+    prov_->generate_modbus_mappings(interface_prefix_.as_string(),
+                                    "config/modbus882.yaml");
   } else {
     throw std::invalid_argument("unsupported stepper driver model");
   }
+
+  RCLCPP_DEBUG(
+      node_->get_logger(),
+      "StepperDriverRS485SOInterface::StepperDriverRS485SOInterface(): ended");
 }
 
 void StepperDriverRS485SOInterface::param_ppr_get_handler_(
     const std::shared_ptr<stepper_driver::srv::ParamPprGet::Request> request,
     std::shared_ptr<stepper_driver::srv::ParamPprGet::Response> response) {
   (void)request;
-  response->status_code = 1;
+  auto req = std::make_shared<modbus::srv::HoldingRegisterRead::Request>();
+  auto resp = std::make_shared<modbus::srv::HoldingRegisterRead::Response>();
+
+  // req->leaf_id will be auto-filled
+  req->addr = 0x0001;
+  req->count = 1;
+
+  prov_->holding_register_read(req, resp);
+  response->exception_code = resp->exception_code;
+  if (!resp->exception_code && resp->len) {
+    response->ppr = resp->values[0];
+  }
 }
 
 void StepperDriverRS485SOInterface::param_ppr_set_handler_(
@@ -53,8 +71,15 @@ void StepperDriverRS485SOInterface::param_ppr_set_handler_(
     std::shared_ptr<stepper_driver::srv::ParamPprSet::Response> response)
 
 {
-  (void)request;
-  response->status_code = 1;
+  auto req = std::make_shared<modbus::srv::HoldingRegisterWrite::Request>();
+  auto resp = std::make_shared<modbus::srv::HoldingRegisterWrite::Response>();
+
+  // req->leaf_id will be auto-filled
+  req->addr = 0x0001;
+  req->value = request->ppr;
+
+  prov_->holding_register_write(req, resp);
+  response->exception_code = resp->exception_code;
 }
 
 }  // namespace stepper_driver_rs485_so
