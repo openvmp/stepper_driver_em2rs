@@ -7,17 +7,17 @@
  * Licensed under Apache License, Version 2.0.
  */
 
-#ifndef OPENVMP_SD_RS485_SO_NODE_H
-#define OPENVMP_SD_RS485_SO_NODE_H
+#ifndef OPENVMP_SD_EM2RS_NODE_H
+#define OPENVMP_SD_EM2RS_NODE_H
 
 #include <memory>
 #include <string>
 
 #include "rclcpp/rclcpp.hpp"
 #include "serial/port.hpp"
-#include "stepper_driver_rs485_so/interface.hpp"
+#include "stepper_driver_em2rs/interface.hpp"
 
-namespace stepper_driver_rs485_so {
+namespace stepper_driver_em2rs {
 
 class Node : public rclcpp::Node {
  public:
@@ -27,6 +27,6 @@ class Node : public rclcpp::Node {
   std::shared_ptr<StepperDriverRS485SOInterface> intf_;
 };
 
-}  // namespace stepper_driver_rs485_so
+}  // namespace stepper_driver_em2rs
 
-#endif  // OPENVMP_SD_RS485_SO_NODE_H
+#endif  // OPENVMP_SD_EM2RS_NODE_H

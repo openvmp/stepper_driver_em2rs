@@ -9,11 +9,11 @@
 
 #include "modbus_rtu/node.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "stepper_driver_rs485_so/node.hpp"
+#include "stepper_driver_em2rs/node.hpp"
 
 int main(int argc, char **argv) {
   rclcpp::init(argc, argv);
-  auto node = std::make_shared<stepper_driver_rs485_so::Node>();
+  auto node = std::make_shared<stepper_driver_em2rs::Node>();
 
   rclcpp::executors::MultiThreadedExecutor exec;
   exec.add_node(node);

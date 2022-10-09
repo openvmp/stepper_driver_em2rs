@@ -7,14 +7,14 @@
  * Licensed under Apache License, Version 2.0.
  */
 
-#include "stepper_driver_rs485_so/interface.hpp"
+#include "stepper_driver_em2rs/interface.hpp"
 
 #include <locale>
 
 #include "modbus_rtu/factory.hpp"
-#include "stepper_driver_rs485_so/node.hpp"
+#include "stepper_driver_em2rs/node.hpp"
 
-namespace stepper_driver_rs485_so {
+namespace stepper_driver_em2rs {
 
 StepperDriverRS485SOInterface::StepperDriverRS485SOInterface(rclcpp::Node *node)
     : StepperDriverInterface(node) {
@@ -82,4 +82,4 @@ void StepperDriverRS485SOInterface::param_ppr_set_handler_(
   response->exception_code = resp->exception_code;
 }
 
-}  // namespace stepper_driver_rs485_so
+}  // namespace stepper_driver_em2rs

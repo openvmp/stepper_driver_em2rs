@@ -7,8 +7,8 @@
  * Licensed under Apache License, Version 2.0.
  */
 
-#ifndef OPENVMP_SD_RS485_SO_INTERFACE_H
-#define OPENVMP_SD_RS485_SO_INTERFACE_H
+#ifndef OPENVMP_SD_EM2RS_INTERFACE_H
+#define OPENVMP_SD_EM2RS_INTERFACE_H
 
 #include <memory>
 #include <string>
@@ -18,7 +18,7 @@
 #include "std_msgs/msg/int32.hpp"
 #include "stepper_driver/interface.hpp"
 
-namespace stepper_driver_rs485_so {
+namespace stepper_driver_em2rs {
 
 class StepperDriverRS485SOInterface
     : public stepper_driver::StepperDriverInterface {
@@ -42,6 +42,6 @@ class StepperDriverRS485SOInterface
   std::shared_ptr<modbus::Interface> prov_;
 };
 
-}  // namespace stepper_driver_rs485_so
+}  // namespace stepper_driver_em2rs
 
-#endif  // OPENVMP_SD_RS485_SO_INTERFACE_H
+#endif  // OPENVMP_SD_EM2RS_INTERFACE_H

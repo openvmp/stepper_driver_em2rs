@@ -7,12 +7,12 @@
  * Licensed under Apache License, Version 2.0.
  */
 
-#include "stepper_driver_rs485_so/node.hpp"
+#include "stepper_driver_em2rs/node.hpp"
 
-namespace stepper_driver_rs485_so {
+namespace stepper_driver_em2rs {
 
-Node::Node() : rclcpp::Node::Node("stepper_driver_rs485_so") {
+Node::Node() : rclcpp::Node::Node("stepper_driver_em2rs") {
   intf_ = std::make_shared<StepperDriverRS485SOInterface>(this);
 }
 
-}  // namespace stepper_driver_rs485_so
+}  // namespace stepper_driver_em2rs

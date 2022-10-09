@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>stepper_driver_rs485_so</name>
+  <name>stepper_driver_em2rs</name>
   <version>0.0.1</version>
-  <description>RS485 Stepper Motor Drivers by STEPPERONLINE</description>
+  <description>RS485 Stepper Motor Drivers by Leadshine, STEPPERONLINE and others</description>
   <maintainer email="openvmp@proton.me">Roman Kuzmenko</maintainer>
   <license>Apache License 2.0</license>
 

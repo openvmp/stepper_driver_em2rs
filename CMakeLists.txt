@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(stepper_driver_rs485_so)
+project(stepper_driver_em2rs)
 
 # Compiler settings
 if(NOT CMAKE_CXX_STANDARD)
