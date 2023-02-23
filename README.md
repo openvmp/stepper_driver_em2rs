@@ -21,7 +21,7 @@ This packages controls stepper drivers using Modbus RTU over RS485. It is expect
 
  ### Generic stepper driver interface
 
- This package implement [the generic stepper driver interface](https://github.com/stepper_driver/).
+ This package implement [the generic stepper driver interface](https://github.com/openvmp/stepper_driver/).
 
  ### Custom interface
 
@@ -31,4 +31,3 @@ This packages controls stepper drivers using Modbus RTU over RS485. It is expect
  ### Notes
 
 Disclaimer: it has only been tested with STEPPERONLINE DM556RS so far.
-

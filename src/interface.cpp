@@ -9,6 +9,7 @@
 
 #include "stepper_driver_em2rs/interface.hpp"
 
+#include <ament_index_cpp/get_package_share_directory.hpp>
 #include <locale>
 
 #include "modbus_rtu/factory.hpp"
@@ -31,14 +32,16 @@ StepperDriverRS485SOInterface::StepperDriverRS485SOInterface(rclcpp::Node *node)
     c = tolower(c);
   }
 
+  std::string share_dir =
+      ament_index_cpp::get_package_share_directory("stepper_driver_em2rs");
   prov_->generate_modbus_mappings(interface_prefix_.as_string(),
-                                  "config/modbus.yaml");
+                                  share_dir + "/config/modbus.yaml");
   if (model == "dm556rs") {
     prov_->generate_modbus_mappings(interface_prefix_.as_string(),
-                                    "config/modbus556.yaml");
+                                    share_dir + "/config/modbus556.yaml");
   } else if (model == "dm882rs") {
     prov_->generate_modbus_mappings(interface_prefix_.as_string(),
-                                    "config/modbus882.yaml");
+                                    share_dir + "/config/modbus882.yaml");
   } else {
     throw std::invalid_argument("unsupported stepper driver model");
   }

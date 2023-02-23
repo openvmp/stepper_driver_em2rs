@@ -12,6 +12,7 @@ endif()
 
 # Dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(modbus REQUIRED)
@@ -42,6 +43,7 @@ set(project_LIBRARIES
 )
 
 set(project_DEPENDENCIES
+  ament_index_cpp
   rclcpp
   modbus_rtu
   stepper_driver
@@ -64,6 +66,10 @@ ament_export_dependencies(${project_DEPENDENCIES} ${modbus_rtu_DEPENDENCIES} ${s
 install(TARGETS
   ${PROJECT_NAME}_native
   DESTINATION lib
+)
+install(
+  DIRECTORY config
+  DESTINATION share/${PROJECT_NAME}
 )
 
 
