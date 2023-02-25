@@ -24,7 +24,7 @@ class StepperDriverRS485TesterNode(ModbusRtuTesterNode):
     def configured_holding_register_read(self, id, name, timeout=10.0):
         client = self.create_client(
             ConfiguredHoldingRegisterRead,
-            "/stepper_driver/motor" + str(id) + "/modbus/get_" + name,
+            "/stepper/motor" + str(id) + "/modbus/get_" + name,
         )
         ready = client.wait_for_service(timeout_sec=timeout)
         if not ready:
@@ -36,7 +36,7 @@ class StepperDriverRS485TesterNode(ModbusRtuTesterNode):
         return future
 
     def param_get_ppr(self, id, timeout=10.0):
-        service_name = "/stepper_driver/motor" + str(id) + "/param/ppr/get"
+        service_name = "/stepper/motor" + str(id) + "/param/ppr/get"
         client = self.create_client(
             ParamPprGet,
             service_name,

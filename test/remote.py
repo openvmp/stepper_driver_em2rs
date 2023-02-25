@@ -77,7 +77,7 @@ def generate_test_description():
         # arguments=["--ros-args", "--log-level", "debug"],
         parameters=[
             {
-                "stepper_driver_prefix": "/stepper_driver/motor1",
+                "stepper_prefix": "/stepper/motor1",
                 "stepper_driver_model": "DM556RS",
                 "modbus_prefix": "/modbus/bus1",
                 "modbus_leaf_id": 1,

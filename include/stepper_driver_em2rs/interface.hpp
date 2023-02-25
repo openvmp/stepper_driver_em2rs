@@ -20,11 +20,10 @@
 
 namespace stepper_driver_em2rs {
 
-class StepperDriverRS485SOInterface
-    : public stepper_driver::StepperDriverInterface {
+class Interface : public stepper_driver::Interface {
  public:
-  StepperDriverRS485SOInterface(rclcpp::Node *node);
-  virtual ~StepperDriverRS485SOInterface() {}
+  Interface(rclcpp::Node *node);
+  virtual ~Interface() {}
 
   rclcpp::Parameter param_model;
 

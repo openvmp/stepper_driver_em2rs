@@ -17,13 +17,12 @@
 
 namespace stepper_driver_em2rs {
 
-StepperDriverRS485SOInterface::StepperDriverRS485SOInterface(rclcpp::Node *node)
-    : StepperDriverInterface(node) {
+Interface::Interface(rclcpp::Node *node) : stepper_driver::Interface(node) {
+  auto prefix = get_prefix_();
+
   prov_ = modbus_rtu::Factory::New(node);
 
-  RCLCPP_DEBUG(node_->get_logger(),
-               "StepperDriverRS485SOInterface::StepperDriverRS485SOInterface():"
-               " started");
+  RCLCPP_DEBUG(node_->get_logger(), "Interface::Interface():" " started");
 
   node->declare_parameter("stepper_driver_model", "dm556rs");
   node->get_parameter("stepper_driver_model", param_model);
@@ -34,24 +33,21 @@ StepperDriverRS485SOInterface::StepperDriverRS485SOInterface(rclcpp::Node *node)
 
   std::string share_dir =
       ament_index_cpp::get_package_share_directory("stepper_driver_em2rs");
-  prov_->generate_modbus_mappings(interface_prefix_.as_string(),
-                                  share_dir + "/config/modbus.yaml");
+  prov_->generate_modbus_mappings(prefix, share_dir + "/config/modbus.yaml");
   if (model == "dm556rs") {
-    prov_->generate_modbus_mappings(interface_prefix_.as_string(),
+    prov_->generate_modbus_mappings(prefix,
                                     share_dir + "/config/modbus556.yaml");
   } else if (model == "dm882rs") {
-    prov_->generate_modbus_mappings(interface_prefix_.as_string(),
+    prov_->generate_modbus_mappings(prefix,
                                     share_dir + "/config/modbus882.yaml");
   } else {
     throw std::invalid_argument("unsupported stepper driver model");
   }
 
-  RCLCPP_DEBUG(
-      node_->get_logger(),
-      "StepperDriverRS485SOInterface::StepperDriverRS485SOInterface(): ended");
+  RCLCPP_DEBUG(node_->get_logger(), "Interface::Interface(): ended");
 }
 
-void StepperDriverRS485SOInterface::param_ppr_get_handler_(
+void Interface::param_ppr_get_handler_(
     const std::shared_ptr<stepper_driver::srv::ParamPprGet::Request> request,
     std::shared_ptr<stepper_driver::srv::ParamPprGet::Response> response) {
   (void)request;
@@ -69,7 +65,7 @@ void StepperDriverRS485SOInterface::param_ppr_get_handler_(
   }
 }
 
-void StepperDriverRS485SOInterface::param_ppr_set_handler_(
+void Interface::param_ppr_set_handler_(
     const std::shared_ptr<stepper_driver::srv::ParamPprSet::Request> request,
     std::shared_ptr<stepper_driver::srv::ParamPprSet::Response> response)
 

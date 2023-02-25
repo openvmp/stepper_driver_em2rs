@@ -24,7 +24,7 @@ class Node : public rclcpp::Node {
   Node();
 
  private:
-  std::shared_ptr<StepperDriverRS485SOInterface> intf_;
+  std::shared_ptr<Interface> intf_;
 };
 
 }  // namespace stepper_driver_em2rs
