@@ -79,6 +79,31 @@ holding_registers:
       comment: The related function is started by sending the control word
       min_delay_ms: 50
       value:
+        reset_cur_alarm: 0x1111
+        reset_history_alarm: 0x1122
+        save_to_eeprom: 0x2211
+        param_reset: 0x2222 # Excluding motor parameters
+        all_param_reset: 0x2233
         jog_cw: 0x4001
         jog_ccw: 0x4002
-        default: 10
+    - addr: 0x2203
+      name: cur_alarm
+      alt_names:
+        - Current alarm
+      comment: >
+        Read-only register for the current alarm state
+
+        0x01: Over current (1 red LED flash)
+        0x02: Over voltage (2 red LED flashes)
+        0x40: Current sampling circut error (3 read LED flashes)
+        0x80: Shaft locking error (4 red LED flashes)
+        0x100: Parameter auto-tuning error (6 red LED flashes)
+        0x200: EEPROM error (5 red LED flashes)
+      read_only: true
+      value:
+        over_current: 0x01
+        over_voltage: 0x02
+        current_sampling: 0x40
+        shaft_locking: 0x80
+        auto_tuning: 0x100
+        eeprom: 0x200
