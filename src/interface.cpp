@@ -91,7 +91,7 @@ void Interface::velocity_set_handler_(
   auto req = std::make_shared<modbus::srv::HoldingRegisterWrite::Request>();
   auto resp = std::make_shared<modbus::srv::HoldingRegisterWrite::Response>();
 
-  uint16_t velocity = ::abs(request->velocity);
+  uint16_t velocity = ::ceil(::abs(request->velocity*60.0));
 
   if (velocity_last_ != velocity) {
     // req->leaf_id will be auto-filled
@@ -106,7 +106,7 @@ void Interface::velocity_set_handler_(
     }
   }
 
-  if (request->velocity == 0) {
+  if (velocity == 0) {
     response->exception_code = 0;
     return;
   }
