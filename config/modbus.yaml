@@ -72,6 +72,28 @@ holding_registers:
         min: 0
         max: 500
         default: 10
+    - addr: 0x01E1
+      name: jog_velocity
+      alt_names:
+        - Jog velocity
+      comment: Jog velocity if triggered by RS485 in rounds per minute
+      value:
+        max: 5000
+    - addr: 0x01FF
+      name: version
+      alt_names:
+        - Version information
+      read_only: true
+    - addr: 0x0201
+      name: firmware
+      alt_names:
+        - Firmware information
+      read_only: true
+    - addr: 0x0203
+      name: model
+      alt_names:
+        - Motor model
+      read_only: true
     - addr: 0x1801
       name: control
       alt_names:

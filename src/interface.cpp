@@ -55,6 +55,7 @@ void Interface::param_ppr_get_handler_(
   auto resp = std::make_shared<modbus::srv::HoldingRegisterRead::Response>();
 
   // req->leaf_id will be auto-filled
+  req->leaf_id = 0;
   req->addr = 0x0001;
   req->count = 1;
 
@@ -74,9 +75,50 @@ void Interface::param_ppr_set_handler_(
   auto resp = std::make_shared<modbus::srv::HoldingRegisterWrite::Response>();
 
   // req->leaf_id will be auto-filled
+  req->leaf_id = 0;
   req->addr = 0x0001;
   req->value = request->ppr;
 
+  prov_->holding_register_write(req, resp);
+  response->exception_code = resp->exception_code;
+}
+
+void Interface::velocity_set_handler_(
+    const std::shared_ptr<stepper_driver::srv::VelocitySet::Request> request,
+    std::shared_ptr<stepper_driver::srv::VelocitySet::Response> response)
+
+{
+  auto req = std::make_shared<modbus::srv::HoldingRegisterWrite::Request>();
+  auto resp = std::make_shared<modbus::srv::HoldingRegisterWrite::Response>();
+
+  uint16_t velocity = ::abs(request->velocity);
+
+  if (velocity_last_ != velocity) {
+    // req->leaf_id will be auto-filled
+    req->leaf_id = 0;
+    req->addr = 0x01E1;
+    req->value = velocity;
+
+    prov_->holding_register_write(req, resp);
+    if (resp->exception_code) {
+      response->exception_code = resp->exception_code;
+      return;
+    }
+  }
+
+  if (request->velocity == 0) {
+    response->exception_code = 0;
+    return;
+  }
+
+  req->leaf_id = 0;
+  req->addr = 0x1801;
+  if (request->velocity > 0) {
+    req->value = 0x4001;
+  }
+  else {
+    req->value = 0x4002;
+  }
   prov_->holding_register_write(req, resp);
   response->exception_code = resp->exception_code;
 }

@@ -28,16 +28,21 @@ class Interface : public stepper_driver::Interface {
   rclcpp::Parameter param_model;
 
  protected:
-  void param_ppr_get_handler_(
+  virtual void param_ppr_get_handler_(
       const std::shared_ptr<stepper_driver::srv::ParamPprGet::Request> request,
       std::shared_ptr<stepper_driver::srv::ParamPprGet::Response> response)
       override;
-  void param_ppr_set_handler_(
+  virtual void param_ppr_set_handler_(
       const std::shared_ptr<stepper_driver::srv::ParamPprSet::Request> request,
       std::shared_ptr<stepper_driver::srv::ParamPprSet::Response> response)
       override;
+  virtual void velocity_set_handler_(
+      const std::shared_ptr<stepper_driver::srv::VelocitySet::Request> request,
+      std::shared_ptr<stepper_driver::srv::VelocitySet::Response> response)
+      override;
 
  private:
+  int16_t velocity_last_ = 0x7FFF;
   std::shared_ptr<modbus::Interface> prov_;
 };
 
