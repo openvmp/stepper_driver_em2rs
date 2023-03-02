@@ -13,7 +13,6 @@
 #include <locale>
 
 #include "modbus_rtu/factory.hpp"
-#include "stepper_driver_em2rs/node.hpp"
 
 namespace stepper_driver_em2rs {
 
