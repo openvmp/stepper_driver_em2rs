@@ -75,28 +75,55 @@ holding_registers:
     - addr: 0x01E1
       name: jog_velocity
       alt_names:
+        - Pr6.00
         - Jog velocity
       comment: Jog velocity if triggered by RS485 in rounds per minute
       value:
+        min: 0
         max: 5000
+        default: 60
+    - addr: 0x01E3
+      name: jog_interval
+      alt_names:
+        - Pr6.01
+        - Jog interval
+      comment: How long to jog once triggered in ms
+      value:
+        min: 0
+        max: 10000
+        default: 100
+    - addr: 0x01E7
+      name: jog_acc_dec
+      alt_names:
+        - Pr6.03
+        - Jog acceleration and deceleration interval
+      comment: How long to accelerate to reach the desired jog velocity
+      value:
+        min: 0
+        max: 10000
+        default: 200
     - addr: 0x01FF
       name: version
       alt_names:
+        - Pr6.15
         - Version information
       read_only: true
     - addr: 0x0201
       name: firmware
       alt_names:
+        - Pr6.16
         - Firmware information
       read_only: true
     - addr: 0x0203
       name: model
       alt_names:
+        - Pr7.00
         - Motor model
       read_only: true
     - addr: 0x1801
       name: control
       alt_names:
+        - Pr7.00
         - Control word
       comment: The related function is started by sending the control word
       min_delay_ms: 50
