@@ -17,6 +17,7 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(modbus REQUIRED)
 find_package(modbus_rtu REQUIRED)
+find_package(remote_actuator REQUIRED)
 find_package(stepper_driver REQUIRED)
 
 # Logic shared by all targets
@@ -25,6 +26,7 @@ include_directories(
   ${serial_INCLUDE_DIRS}
   ${modbus_INCLUDE_DIRS}
   ${modbus_rtu_INCLUDE_DIRS}
+  ${remote_actuator_INCLUDE_DIRS}
   ${stepper_driver_INCLUDE_DIRS}
 )
 
@@ -38,6 +40,8 @@ set(project_LIBRARIES
   ${modbus_LIBRARIES}
   ${modbus_rtu_LIBRARIES}
   ${modbus_rtu_native_LIBRARIES}
+  ${remote_actuator_LIBRARIES}
+  ${remote_actuator_native_LIBRARIES}
   ${stepper_driver_LIBRARIES}
   ${stepper_driver_native_LIBRARIES}
 )
@@ -46,6 +50,7 @@ set(project_DEPENDENCIES
   ament_index_cpp
   rclcpp
   modbus_rtu
+  remote_actuator
   stepper_driver
 )
 

@@ -11,6 +11,7 @@
   <depend>ament_index_cpp</depend>
   <depend>rclcpp</depend>
   <depend>std_msgs</depend>
+  <depend>remote_actuator</depend>
   <depend>stepper_driver</depend>
   <depend>modbus_rtu</depend>
   <depend>serial</depend>
