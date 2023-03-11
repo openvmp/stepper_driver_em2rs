@@ -1,158 +1,157 @@
 holding_registers:
-    - addr: 0x0001
-      name: ppr
-      alt_names:
-        - Pr0.00
-        - Pulse/revolution
-        - Microstep
-      value:
-        min: 200
-        max: 51200
-        default: 10000
-    - addr: 0x0007
-      name: dir
-      alt_names:
-        - Pr0.03
-        - Motor direction
-      comment: "0: CW, 1: CCW"
-      value:
-        min: 0
-        max: 1
-        default: 0
-    - addr: 0x0157
-      name: do1
-      alt_names:
-        - Pr4.11
-        - Digital output 1
-      comment: >
-        Default is normal-open(N.O) type,
-        it can be set to normal-closed(N.C) type
-        by setting the corresponding port +0x80
+  - addr: 0x0001
+    name: ppr
+    alt_names:
+      - Pr0.00
+      - Pulse/revolution
+      - Microstep
+    value:
+      min: 200
+      max: 51200
+      default: 10000
+  - addr: 0x0007
+    name: dir
+    alt_names:
+      - Pr0.03
+      - Motor direction
+    comment: "0: CW, 1: CCW"
+    value:
+      min: 0
+      max: 1
+      default: 0
+  - addr: 0x0157
+    name: do1
+    alt_names:
+      - Pr4.11
+      - Digital output 1
+    comment: >
+      Default is normal-open(N.O) type,
+      it can be set to normal-closed(N.C) type
+      by setting the corresponding port +0x80
 
-        0: invalid;
-        0x20: command completed;
-        0x21: path completed;
-        0x22: homing completed;
-        0x23: in-position completed;
-        0x24: brake output;
-        0x25: alarm output;
-      value:
-        min: 0
-        max: 65535
-        default: 0
-    - addr: 0x0167
-      name: brake_delay_release
-      alt_names:
-        - Pr4.19
-        - Delay of brake released
-      comment: Keep default normally
-      value:
-        min: 0
-        max: 1500
-        default: 250
-      units: ms
-    - addr: 0x0169
-      name: brake_delay_lock
-      alt_names:
-        - Pr4.20
-        - Delay of brake locked
-      comment: Keep default normally
-      value:
-        min: 0
-        max: 1500
-        default: 250
-      units: ms
-    - addr: 0x016B
-      name: brake_locking_velocity_threshold
-      alt_names:
-        - Pr4.21
-        - Threshold value of brake locking velocity
-      comment: Keep default normally
-      value:
-        min: 0
-        max: 500
-        default: 10
-    - addr: 0x01E1
-      name: jog_velocity
-      alt_names:
-        - Pr6.00
-        - Jog velocity
-      comment: Jog velocity if triggered by RS485 in rounds per minute
-      value:
-        min: 0
-        max: 5000
-        default: 60
-    - addr: 0x01E3
-      name: jog_interval
-      alt_names:
-        - Pr6.01
-        - Jog interval
-      comment: How long to jog once triggered in ms
-      value:
-        min: 0
-        max: 10000
-        default: 100
-    - addr: 0x01E7
-      name: jog_acc_dec
-      alt_names:
-        - Pr6.03
-        - Jog acceleration and deceleration interval
-      comment: How long to accelerate to reach the desired jog velocity
-      value:
-        min: 0
-        max: 10000
-        default: 200
-    - addr: 0x01FF
-      name: version
-      alt_names:
-        - Pr6.15
-        - Version information
-      read_only: true
-    - addr: 0x0201
-      name: firmware
-      alt_names:
-        - Pr6.16
-        - Firmware information
-      read_only: true
-    - addr: 0x0203
-      name: model
-      alt_names:
-        - Pr7.00
-        - Motor model
-      read_only: true
-    - addr: 0x1801
-      name: control
-      alt_names:
-        - Pr7.00
-        - Control word
-      comment: The related function is started by sending the control word
-      min_delay_ms: 50
-      value:
-        reset_cur_alarm: 0x1111
-        reset_history_alarm: 0x1122
-        save_to_eeprom: 0x2211
-        param_reset: 0x2222 # Excluding motor parameters
-        all_param_reset: 0x2233
-        jog_cw: 0x4001
-        jog_ccw: 0x4002
-    - addr: 0x2203
-      name: cur_alarm
-      alt_names:
-        - Current alarm
-      comment: >
-        Read-only register for the current alarm state
+      0: invalid;
+      0x20: command completed;
+      0x21: path completed;
+      0x22: homing completed;
+      0x23: in-position completed;
+      0x24: brake output;
+      0x25: alarm output;
+    value:
+      min: 0
+      max: 65535
+      default: 0
+  - addr: 0x0167
+    name: brake_delay_release
+    alt_names:
+      - Pr4.19
+      - Delay of brake released
+    comment: Keep default normally
+    value:
+      min: 0
+      max: 1500
+      default: 250
+    units: ms
+  - addr: 0x0169
+    name: brake_delay_lock
+    alt_names:
+      - Pr4.20
+      - Delay of brake locked
+    comment: Keep default normally
+    value:
+      min: 0
+      max: 1500
+      default: 250
+    units: ms
+  - addr: 0x016B
+    name: brake_locking_velocity_threshold
+    alt_names:
+      - Pr4.21
+      - Threshold value of brake locking velocity
+    comment: Keep default normally
+    value:
+      min: 0
+      max: 500
+      default: 10
+  - addr: 0x01E1
+    name: jog_velocity
+    alt_names:
+      - Pr6.00
+      - Jog velocity
+    comment: Jog velocity if triggered by RS485 in rounds per minute
+    value:
+      min: 0
+      max: 5000
+      default: 60
+  - addr: 0x01E3
+    name: jog_interval
+    alt_names:
+      - Pr6.01
+      - Jog interval
+    comment: How long to jog once triggered in ms
+    value:
+      min: 0
+      max: 10000
+      default: 100
+  - addr: 0x01E7
+    name: jog_acc_dec
+    alt_names:
+      - Pr6.03
+      - Jog acceleration and deceleration interval
+    comment: How long to accelerate to reach the desired jog velocity
+    value:
+      min: 0
+      max: 10000
+      default: 200
+  - addr: 0x01FF
+    name: version
+    alt_names:
+      - Pr6.15
+      - Version information
+    read_only: true
+  - addr: 0x0201
+    name: firmware
+    alt_names:
+      - Pr6.16
+      - Firmware information
+    read_only: true
+  - addr: 0x0203
+    name: model
+    alt_names:
+      - Pr7.00
+      - Motor model
+    read_only: true
+  - addr: 0x1801
+    name: control
+    alt_names:
+      - Control word
+    comment: The related function is started by sending the control word
+    min_delay_ms: 50
+    value:
+      reset_cur_alarm: 0x1111
+      reset_history_alarm: 0x1122
+      save_to_eeprom: 0x2211
+      param_reset: 0x2222 # Excluding motor parameters
+      all_param_reset: 0x2233
+      jog_cw: 0x4001
+      jog_ccw: 0x4002
+  - addr: 0x2203
+    name: cur_alarm
+    alt_names:
+      - Current alarm
+    comment: >
+      Read-only register for the current alarm state
 
-        0x01: Over current (1 red LED flash)
-        0x02: Over voltage (2 red LED flashes)
-        0x40: Current sampling circut error (3 read LED flashes)
-        0x80: Shaft locking error (4 red LED flashes)
-        0x100: Parameter auto-tuning error (6 red LED flashes)
-        0x200: EEPROM error (5 red LED flashes)
-      read_only: true
-      value:
-        over_current: 0x01
-        over_voltage: 0x02
-        current_sampling: 0x40
-        shaft_locking: 0x80
-        auto_tuning: 0x100
-        eeprom: 0x200
+      0x01: Over current (1 red LED flash)
+      0x02: Over voltage (2 red LED flashes)
+      0x40: Current sampling circut error (3 read LED flashes)
+      0x80: Shaft locking error (4 red LED flashes)
+      0x100: Parameter auto-tuning error (6 red LED flashes)
+      0x200: EEPROM error (5 red LED flashes)
+    read_only: true
+    value:
+      over_current: 0x01
+      over_voltage: 0x02
+      current_sampling: 0x40
+      shaft_locking: 0x80
+      auto_tuning: 0x100
+      eeprom: 0x200

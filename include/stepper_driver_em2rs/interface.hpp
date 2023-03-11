@@ -29,7 +29,7 @@ class Interface : public stepper_driver::Interface {
 
  protected:
   virtual bool has_velocity() override { return true; }
-  virtual void position_set_real_(double) {}
+  virtual void position_set_real_(double) override {}
   virtual void velocity_set_real_(double) override;
 
   virtual rclcpp::FutureReturnCode param_ppr_get_handler_(
