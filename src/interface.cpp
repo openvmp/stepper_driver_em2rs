@@ -45,6 +45,7 @@ Interface::Interface(rclcpp::Node *node) : stepper_driver::Interface(node) {
     throw std::invalid_argument("unsupported stepper driver model");
   }
 
+  init_actuator();
   RCLCPP_DEBUG(node_->get_logger(), "Interface::Interface(): ended");
 }
 
