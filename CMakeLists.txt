@@ -64,13 +64,21 @@ install(TARGETS
 )
 
 # Library target
-add_library(${PROJECT_NAME}_native ${project_SOURCE_FILES})
+add_library(${PROJECT_NAME}_native src/factory.cpp ${project_SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME}_native ${project_LIBRARIES})
 ament_target_dependencies(${PROJECT_NAME}_native ${project_DEPENDENCIES})
-ament_export_dependencies(${project_DEPENDENCIES} ${modbus_rtu_DEPENDENCIES} ${stepper_driver_DEPENDENCIES})
+ament_export_targets(${PROJECT_NAME}_native_library HAS_LIBRARY_TARGET)
+# ament_export_dependencies(${project_DEPENDENCIES} ${modbus_rtu_DEPENDENCIES} ${stepper_driver_DEPENDENCIES})
+ament_export_dependencies(${project_DEPENDENCIES})
+ament_export_include_directories(include)
 install(TARGETS
   ${PROJECT_NAME}_native
+  EXPORT ${PROJECT_NAME}_native_library
   DESTINATION lib
+)
+install(
+  DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION include/${PROJECT_NAME}
 )
 install(
   DIRECTORY config
