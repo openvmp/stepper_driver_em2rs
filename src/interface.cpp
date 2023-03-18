@@ -100,7 +100,9 @@ void Interface::velocity_set_real_(double velocity) {
 
   uint16_t velocity_val = ::ceil(::abs(velocity * 60.0));
 
-  if (velocity_last_ != velocity_val) {
+  static const double VELOCITY_MIN = 0.000001;
+
+  if (::abs(velocity_last_ - velocity_val) > VELOCITY_MIN) {
     // req->leaf_id will be auto-filled
     req->leaf_id = 0;
     req->addr = 0x01E1;
@@ -110,10 +112,14 @@ void Interface::velocity_set_real_(double velocity) {
     if (resp->exception_code) {
       return;
     }
+    velocity_last_ = velocity_val;
   }
 
-  if (velocity_val == 0) {
+  if (velocity_val == 0.0) {
     return;
+  }
+  if (velocity_val <= VELOCITY_MIN) {
+    velocity_val = 0.0;
   }
 
   req->leaf_id = 0;
