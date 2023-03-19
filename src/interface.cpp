@@ -102,10 +102,15 @@ void Interface::velocity_set_real_(double velocity) {
 
   static const double VELOCITY_MIN = 0.000001;
 
+  // Don't even try to move slower than the bottom threshold
+  if (velocity_val <= VELOCITY_MIN) {
+    velocity_val = 0.0;
+  }
+
+  // Adjust the jog speed if necessary
   if (::abs(velocity_last_ - velocity_val) > VELOCITY_MIN) {
-    // req->leaf_id will be auto-filled
-    req->leaf_id = 0;
-    req->addr = 0x01E1;
+    req->leaf_id = 0;    // it will be auto-filled
+    req->addr = 0x01E1;  // Jog speed
     req->value = velocity_val;
 
     prov_->holding_register_write(req, resp);
@@ -115,21 +120,17 @@ void Interface::velocity_set_real_(double velocity) {
     velocity_last_ = velocity_val;
   }
 
-  if (velocity_val == 0.0) {
-    return;
+  // Send the jog command if it is supposed to keep moving
+  if (velocity_val != 0.0) {
+    req->leaf_id = 0;    // it will be auto-filled
+    req->addr = 0x1801;  // Trigger jog
+    if (velocity > 0) {
+      req->value = 0x4001;  // clockwise
+    } else {
+      req->value = 0x4002;  // counter-clockwise
+    }
+    prov_->holding_register_write(req, resp);
   }
-  if (velocity_val <= VELOCITY_MIN) {
-    velocity_val = 0.0;
-  }
-
-  req->leaf_id = 0;
-  req->addr = 0x1801;
-  if (velocity > 0) {
-    req->value = 0x4001;
-  } else {
-    req->value = 0x4002;
-  }
-  prov_->holding_register_write(req, resp);
 }
 
 }  // namespace stepper_driver_em2rs
