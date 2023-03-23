@@ -101,7 +101,7 @@ void Interface::velocity_set_real_(double velocity) {
   auto req = std::make_shared<modbus::srv::HoldingRegisterWrite::Request>();
   auto resp = std::make_shared<modbus::srv::HoldingRegisterWrite::Response>();
 
-  uint16_t velocity_val = ::abs(velocity * 60.0);
+  uint16_t velocity_val = ::abs(velocity * 60.0 / (2.0 * M_PI));
 
   // Adjust the jog speed if necessary
   if (velocity_last_ != velocity_val && velocity_val != 0) {
@@ -139,7 +139,7 @@ void Interface::velocity_set_real_(double velocity) {
           "Interface::velocity_set_real_(): failed triggering the jog");
     }
 
-    double velocity_real = ((double)velocity_val) / 60.0;
+    double velocity_real = ((double)velocity_val) * 2.0 * M_PI / 60.0;
     if (velocity < 0) {
       velocity_real *= -1.0;
     }
