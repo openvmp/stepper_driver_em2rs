@@ -1,6 +1,6 @@
 # OpenVMP
 
-[![License](./license.svg)](./LICENSE.txt)
+[![License](./apache20.svg)](./LICENSE.txt)
 
 This package is a part of
 [the OpenVMP project](https://github.com/openvmp/openvmp).
