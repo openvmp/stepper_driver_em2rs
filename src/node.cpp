@@ -7,12 +7,12 @@
  * Licensed under Apache License, Version 2.0.
  */
 
-#include "stepper_driver_em2rs/node.hpp"
+#include "ros2_em2rs/node.hpp"
 
-namespace stepper_driver_em2rs {
+namespace ros2_em2rs {
 
 Node::Node() : rclcpp::Node::Node("stepper_driver_em2rs") {
   intf_ = std::make_shared<Interface>(this);
 }
 
-}  // namespace stepper_driver_em2rs
+}  // namespace ros2_em2rs

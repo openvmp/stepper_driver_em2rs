@@ -14,10 +14,10 @@
 #include <string>
 
 #include "rclcpp/rclcpp.hpp"
-#include "serial/port.hpp"
-#include "stepper_driver_em2rs/interface.hpp"
+#include "ros2_em2rs/interface.hpp"
+#include "ros2_serial/port.hpp"
 
-namespace stepper_driver_em2rs {
+namespace ros2_em2rs {
 
 class Node : public rclcpp::Node {
  public:
@@ -27,6 +27,6 @@ class Node : public rclcpp::Node {
   std::shared_ptr<Interface> intf_;
 };
 
-}  // namespace stepper_driver_em2rs
+}  // namespace ros2_em2rs
 
 #endif  // OPENVMP_SD_EM2RS_NODE_H

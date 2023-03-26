@@ -1,6 +1,6 @@
 import sys
 
-sys.path.append("../modbus_rtu/test/lib")
+sys.path.append("../ros2_modbus_rtu/test/lib")
 
 from modbus_rtu_test import ModbusRtuTesterNode
 
@@ -9,16 +9,16 @@ from time import sleep
 import rclpy
 from rclpy.node import Node as rclpyNode
 
-from modbus.srv import HoldingRegisterRead, ConfiguredHoldingRegisterRead
+from ros2_modbus.srv import HoldingRegisterRead, ConfiguredHoldingRegisterRead
 from stepper_driver.srv import ParamPprGet, ParamPprSet
-from serial.srv import InjectOutput
+from ros2_serial.srv import InjectOutput
 import std_msgs.msg
 
 
-class StepperDriverRS485TesterNode(ModbusRtuTesterNode):
+class EM2RSTesterNode(ModbusRtuTesterNode):
     test_context = {}
 
-    def __init__(self, name="stepper_driver_rs485_so_tester_node"):
+    def __init__(self, name="stepper_driver_em2rs_so_tester_node"):
         super().__init__(name)
 
     def configured_holding_register_read(self, id, name, timeout=10.0):

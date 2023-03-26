@@ -2,7 +2,7 @@ import sys
 
 sys.path.append("test/lib")
 
-from stepper_driver_rs485_test import StepperDriverRS485TesterNode
+from ros2_em2rs_test import EM2RSTesterNode
 
 from time import sleep
 import rclpy
@@ -44,8 +44,8 @@ def generate_test_description():
     )
     node1 = Node(
         name="stepper_driver",
-        package="stepper_driver_rs485_so",
-        executable="stepper_driver_rs485_so_standalone",
+        package="ros2_em2rs",
+        executable="ros2_em2rs_standalone",
         # arguments=["--ros-args", "--log-level", "debug"],
         parameters=[
             {
@@ -69,8 +69,8 @@ def generate_test_description():
     )
     node2 = Node(
         name="serial_com2",
-        package="serial",
-        executable="serial_standalone",
+        package="ros2_serial",
+        executable="ros2_serial_standalone",
         # arguments=["--ros-args", "--log-level", "debug"],
         parameters=[
             {
@@ -112,7 +112,7 @@ class TestLocal(unittest.TestCase):
         rclpy.init()
         try:
             sleep(3)
-            node = StepperDriverRS485TesterNode()
+            node = EM2RSTesterNode()
             node.subscribe(1)
             node.subscribe(2)
             node.subscribe(1, "output")
@@ -141,7 +141,7 @@ class TestLocal(unittest.TestCase):
         rclpy.init()
         try:
             sleep(3)
-            node = StepperDriverRS485TesterNode()
+            node = EM2RSTesterNode()
             node.subscribe(1)
             node.subscribe(2)
             node.subscribe(1, "output")

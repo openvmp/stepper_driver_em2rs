@@ -7,24 +7,25 @@
  * Licensed under Apache License, Version 2.0.
  */
 
-#include "stepper_driver_em2rs/interface.hpp"
+#include "ros2_em2rs/interface.hpp"
 
 #include <ament_index_cpp/get_package_share_directory.hpp>
 #include <locale>
 
-#include "modbus_rtu/factory.hpp"
+#include "ros2_modbus_rtu/factory.hpp"
 
 #ifndef DEBUG
 #undef RCLCPP_DEBUG
 #define RCLCPP_DEBUG(...)
 #endif
 
-namespace stepper_driver_em2rs {
+namespace ros2_em2rs {
 
-Interface::Interface(rclcpp::Node *node) : stepper_driver::Interface(node) {
+Interface::Interface(rclcpp::Node *node)
+    : remote_stepper_driver::Interface(node) {
   auto prefix = get_prefix_();
 
-  prov_ = modbus_rtu::Factory::New(node);
+  prov_ = ros2_modbus_rtu::Factory::New(node);
 
   RCLCPP_DEBUG(node_->get_logger(), "Interface::Interface(): started");
 
@@ -36,7 +37,7 @@ Interface::Interface(rclcpp::Node *node) : stepper_driver::Interface(node) {
   }
 
   std::string share_dir =
-      ament_index_cpp::get_package_share_directory("stepper_driver_em2rs");
+      ament_index_cpp::get_package_share_directory("ros2_em2rs");
   prov_->generate_modbus_mappings(prefix, share_dir + "/config/modbus.yaml");
   if (model == "dm556rs") {
     prov_->generate_modbus_mappings(prefix,
@@ -53,11 +54,14 @@ Interface::Interface(rclcpp::Node *node) : stepper_driver::Interface(node) {
 }
 
 rclcpp::FutureReturnCode Interface::param_ppr_get_handler_(
-    const std::shared_ptr<stepper_driver::srv::ParamPprGet::Request> request,
-    std::shared_ptr<stepper_driver::srv::ParamPprGet::Response> response) {
+    const std::shared_ptr<remote_stepper_driver::srv::ParamPprGet::Request>
+        request,
+    std::shared_ptr<remote_stepper_driver::srv::ParamPprGet::Response>
+        response) {
   (void)request;
-  auto req = std::make_shared<modbus::srv::HoldingRegisterRead::Request>();
-  auto resp = std::make_shared<modbus::srv::HoldingRegisterRead::Response>();
+  auto req = std::make_shared<ros2_modbus::srv::HoldingRegisterRead::Request>();
+  auto resp =
+      std::make_shared<ros2_modbus::srv::HoldingRegisterRead::Response>();
 
   // req->leaf_id will be auto-filled
   req->leaf_id = 0;
@@ -75,12 +79,15 @@ rclcpp::FutureReturnCode Interface::param_ppr_get_handler_(
 }
 
 rclcpp::FutureReturnCode Interface::param_ppr_set_handler_(
-    const std::shared_ptr<stepper_driver::srv::ParamPprSet::Request> request,
-    std::shared_ptr<stepper_driver::srv::ParamPprSet::Response> response)
+    const std::shared_ptr<remote_stepper_driver::srv::ParamPprSet::Request>
+        request,
+    std::shared_ptr<remote_stepper_driver::srv::ParamPprSet::Response> response)
 
 {
-  auto req = std::make_shared<modbus::srv::HoldingRegisterWrite::Request>();
-  auto resp = std::make_shared<modbus::srv::HoldingRegisterWrite::Response>();
+  auto req =
+      std::make_shared<ros2_modbus::srv::HoldingRegisterWrite::Request>();
+  auto resp =
+      std::make_shared<ros2_modbus::srv::HoldingRegisterWrite::Response>();
 
   // req->leaf_id will be auto-filled
   req->leaf_id = 0;
@@ -98,8 +105,10 @@ rclcpp::FutureReturnCode Interface::param_ppr_set_handler_(
 }
 
 void Interface::velocity_set_real_(double velocity) {
-  auto req = std::make_shared<modbus::srv::HoldingRegisterWrite::Request>();
-  auto resp = std::make_shared<modbus::srv::HoldingRegisterWrite::Response>();
+  auto req =
+      std::make_shared<ros2_modbus::srv::HoldingRegisterWrite::Request>();
+  auto resp =
+      std::make_shared<ros2_modbus::srv::HoldingRegisterWrite::Response>();
 
   uint16_t velocity_val = ::abs(velocity * 60.0 / (2.0 * M_PI));
 
@@ -149,4 +158,4 @@ void Interface::velocity_set_real_(double velocity) {
   }
 }
 
-}  // namespace stepper_driver_em2rs
+}  // namespace ros2_em2rs

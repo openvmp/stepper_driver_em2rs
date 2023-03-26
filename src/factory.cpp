@@ -7,14 +7,14 @@
  * Licensed under Apache License, Version 2.0.
  */
 
-#include "stepper_driver_em2rs/factory.hpp"
+#include "ros2_em2rs/factory.hpp"
 
 #include <exception>
 
 #include "remote_actuator/interface_remote.hpp"
-#include "stepper_driver_em2rs/interface.hpp"
+#include "ros2_em2rs/interface.hpp"
 
-namespace stepper_driver_em2rs {
+namespace ros2_em2rs {
 
 std::shared_ptr<remote_actuator::Interface> Factory::New(rclcpp::Node *node) {
   rclcpp::Parameter use_remote;
@@ -36,4 +36,4 @@ std::shared_ptr<remote_actuator::Interface> Factory::New(rclcpp::Node *node) {
   }
 }
 
-}  // namespace stepper_driver_em2rs
+}  // namespace ros2_em2rs

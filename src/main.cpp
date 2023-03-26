@@ -8,11 +8,11 @@
  */
 
 #include "rclcpp/rclcpp.hpp"
-#include "stepper_driver_em2rs/node.hpp"
+#include "ros2_em2rs/node.hpp"
 
 int main(int argc, char **argv) {
   rclcpp::init(argc, argv);
-  auto node = std::make_shared<stepper_driver_em2rs::Node>();
+  auto node = std::make_shared<ros2_em2rs::Node>();
 
   rclcpp::executors::MultiThreadedExecutor exec;
   exec.add_node(node);

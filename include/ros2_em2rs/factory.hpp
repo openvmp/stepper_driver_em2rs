@@ -15,13 +15,13 @@
 #include "rclcpp/rclcpp.hpp"
 #include "remote_actuator/interface.hpp"
 
-namespace stepper_driver_em2rs {
+namespace ros2_em2rs {
 
 class Factory {
  public:
   static std::shared_ptr<remote_actuator::Interface> New(rclcpp::Node *node);
 };
 
-}  // namespace stepper_driver_em2rs
+}  // namespace ros2_em2rs
 
 #endif  // OPENVMP_STEPPER_DRIVER_EM2RS_FACTORY_H

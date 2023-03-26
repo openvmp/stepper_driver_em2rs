@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>stepper_driver_em2rs</name>
+  <name>ros2_em2rs</name>
   <version>0.0.1</version>
   <description>RS485 Stepper Motor Drivers by Leadshine, STEPPERONLINE and others</description>
   <maintainer email="openvmp@proton.me">Roman Kuzmenko</maintainer>
@@ -12,9 +12,9 @@
   <depend>rclcpp</depend>
   <depend>std_msgs</depend>
   <depend>remote_actuator</depend>
-  <depend>stepper_driver</depend>
-  <depend>modbus_rtu</depend>
-  <depend>serial</depend>
+  <depend>remote_stepper_driver</depend>
+  <depend>ros2_modbus_rtu</depend>
+  <depend>ros2_serial</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
