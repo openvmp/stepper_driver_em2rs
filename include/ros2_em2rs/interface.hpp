@@ -14,13 +14,13 @@
 #include <string>
 
 #include "rclcpp/rclcpp.hpp"
-#include "remote_stepper_driver/interface.hpp"
+#include "remote_stepper_driver/implementation.hpp"
 #include "ros2_modbus/interface.hpp"
 #include "std_msgs/msg/int32.hpp"
 
 namespace ros2_em2rs {
 
-class Interface : public remote_stepper_driver::Interface {
+class Interface : public remote_stepper_driver::Implementation {
  public:
   Interface(rclcpp::Node *node);
   virtual ~Interface() {}

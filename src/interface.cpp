@@ -22,7 +22,7 @@
 namespace ros2_em2rs {
 
 Interface::Interface(rclcpp::Node *node)
-    : remote_stepper_driver::Interface(node) {
+    : remote_stepper_driver::Implementation(node) {
   auto prefix = get_prefix_();
 
   prov_ = ros2_modbus_rtu::Factory::New(node);
