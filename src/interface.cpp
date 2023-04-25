@@ -110,7 +110,7 @@ void Interface::velocity_set_real_(double velocity) {
   auto resp =
       std::make_shared<ros2_modbus::srv::HoldingRegisterWrite::Response>();
 
-  uint16_t velocity_val = ::abs(velocity * 60.0 / (2.0 * M_PI));
+  uint16_t velocity_val = std::fabs(velocity * 60.0 / (2.0 * M_PI));
 
   // Adjust the jog speed if necessary
   if (velocity_last_ != velocity_val && velocity_val != 0) {

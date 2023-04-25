@@ -3,7 +3,7 @@ holding_registers:
     name: ppr
     alt_names:
       - Pr0.00
-      - Pulse/revolution
+      - Pulse per revolution
       - Microstep
     value:
       min: 200
@@ -16,8 +16,496 @@ holding_registers:
       - Motor direction
     comment: "0: CW, 1: CCW"
     value:
+      cw: 0
+      ccw: 1
       min: 0
       max: 1
+      default: 0
+  - addr: 0x000F
+    name: force_enable
+    alt_names:
+      - Pr0.07
+      - Forced enable by software
+    comment: >
+      Software forced enable has a higher priority
+      than IO enable, and when this value is 0, the
+      enable status of the drive only depends on
+      the IO signal. When this value is 1, the motor
+      is enabled regardless of the IO signal status.
+    value:
+      enable_by_io: 0
+      force_enabled: 1
+      min: 0
+      max: 1
+      default: 0
+  - addr: 0x00A1
+    name: cmd_filter_time
+    alt_names:
+      - Pr2.00
+      - Command filter time
+    comment: >
+      To configure the time for internal command filtering (in 0.1ms)
+    value:
+      invalid: 0
+      alarm_clearing_no: 0x07
+      alarm_clearing_nc: 0x87
+      enable_no: 0x08
+      enable_nc: 0x88
+      trigger_command_no: 0x20
+      trigger_command_nc: 0xA0
+      trigger_homing_no: 0x21
+      trigger_homing_nc: 0xA1
+      quick_stop_no: 0x22
+      quick_stop_nc: 0xA2
+      jog_plus_no: 0x23
+      jog_plus_nc: 0xA3
+      jog_minus_no: 0x24
+      jog_minus_nc: 0xA4
+      positive_limit_no: 0x25
+      positive_limit_nc: 0xA5
+      negative_limit_no: 0x26
+      negative_limit_nc: 0xA6
+      home_switch_no: 0x27
+      home_switch_nc: 0xA7
+      path_addr_0_no: 0x28
+      path_addr_0_nc: 0xA8
+      path_addr_1_no: 0x29
+      path_addr_1_nc: 0xA9
+      path_addr_2_no: 0x2A
+      path_addr_2_nc: 0xAA
+      path_addr_3_no: 0x2B
+      path_addr_3_nc: 0xAB
+      jog_velocity_2_no: 0x2C
+      jog_velocity_2_nc: 0xAC
+      min: 0
+      max: 512
+      default: 15
+  - addr: 0x0145
+    name: di1
+    alt_names:
+      - Pr4.02
+      - Digital input 1
+    comment: >
+      Default is normal-open (N.O) type, it can be
+      set to normal-closed (N.C) type by setting
+      the corresponding port +0x80
+
+      0: invalid
+      7: alarm clearing
+      8: enable (also can be set by 0x00F)
+      0x20: Trigger command (CTRG)
+      0x21: Trigger homing
+      0x22: EMG (quick stop)
+      0x23: JOG+
+      0x24: JOG-
+      0x25: POT (positive limit)
+      0x26: NOT (negative limit)
+      0x27: ORG (home switch)
+      0x28: ADD0 (path address 0)
+      0x29: ADD1 (path address 1)
+      0x2A: ADD2 (path address 2)
+      0x2B: ADD3 (path address 3)
+      0x2C: JOG velocity 2
+    value:
+      invalid: 0
+      alarm_clearing_no: 0x07
+      alarm_clearing_nc: 0x87
+      enable_no: 0x08
+      enable_nc: 0x88
+      trigger_command_no: 0x20
+      trigger_command_nc: 0xA0
+      trigger_homing_no: 0x21
+      trigger_homing_nc: 0xA1
+      quick_stop_no: 0x22
+      quick_stop_nc: 0xA2
+      jog_plus_no: 0x23
+      jog_plus_nc: 0xA3
+      jog_minus_no: 0x24
+      jog_minus_nc: 0xA4
+      positive_limit_no: 0x25
+      positive_limit_nc: 0xA5
+      negative_limit_no: 0x26
+      negative_limit_nc: 0xA6
+      home_switch_no: 0x27
+      home_switch_nc: 0xA7
+      path_addr_0_no: 0x28
+      path_addr_0_nc: 0xA8
+      path_addr_1_no: 0x29
+      path_addr_1_nc: 0xA9
+      path_addr_2_no: 0x2A
+      path_addr_2_nc: 0xAA
+      path_addr_3_no: 0x2B
+      path_addr_3_nc: 0xAB
+      jog_velocity_2_no: 0x2C
+      jog_velocity_2_nc: 0xAC
+      min: 0
+      max: 65535
+      default: 0x88
+  - addr: 0x0147
+    name: di2
+    alt_names:
+      - Pr4.03
+      - Digital input 2
+    comment: >
+      Default is normal-open (N.O) type, it can be
+      set to normal-closed (N.C) type by setting
+      the corresponding port +0x80
+
+      0: invalid
+      7: alarm clearing
+      8: enable (also can be set by 0x00F)
+      0x20: Trigger command (CTRG)
+      0x21: Trigger homing
+      0x22: EMG (quick stop)
+      0x23: JOG+
+      0x24: JOG-
+      0x25: POT (positive limit)
+      0x26: NOT (negative limit)
+      0x27: ORG (home switch)
+      0x28: ADD0 (path address 0)
+      0x29: ADD1 (path address 1)
+      0x2A: ADD2 (path address 2)
+      0x2B: ADD3 (path address 3)
+      0x2C: JOG velocity 2
+    value:
+      invalid: 0
+      alarm_clearing_no: 0x07
+      alarm_clearing_nc: 0x87
+      enable_no: 0x08
+      enable_nc: 0x88
+      trigger_command_no: 0x20
+      trigger_command_nc: 0xA0
+      trigger_homing_no: 0x21
+      trigger_homing_nc: 0xA1
+      quick_stop_no: 0x22
+      quick_stop_nc: 0xA2
+      jog_plus_no: 0x23
+      jog_plus_nc: 0xA3
+      jog_minus_no: 0x24
+      jog_minus_nc: 0xA4
+      positive_limit_no: 0x25
+      positive_limit_nc: 0xA5
+      negative_limit_no: 0x26
+      negative_limit_nc: 0xA6
+      home_switch_no: 0x27
+      home_switch_nc: 0xA7
+      path_addr_0_no: 0x28
+      path_addr_0_nc: 0xA8
+      path_addr_1_no: 0x29
+      path_addr_1_nc: 0xA9
+      path_addr_2_no: 0x2A
+      path_addr_2_nc: 0xAA
+      path_addr_3_no: 0x2B
+      path_addr_3_nc: 0xAB
+      jog_velocity_2_no: 0x2C
+      jog_velocity_2_nc: 0xAC
+      min: 0
+      max: 65535
+      default: 0
+  - addr: 0x0149
+    name: di3
+    alt_names:
+      - Pr4.04
+      - Digital input 3
+    comment: >
+      Default is normal-open (N.O) type, it can be
+      set to normal-closed (N.C) type by setting
+      the corresponding port +0x80
+
+      0: invalid
+      7: alarm clearing
+      8: enable (also can be set by 0x00F)
+      0x20: Trigger command (CTRG)
+      0x21: Trigger homing
+      0x22: EMG (quick stop)
+      0x23: JOG+
+      0x24: JOG-
+      0x25: POT (positive limit)
+      0x26: NOT (negative limit)
+      0x27: ORG (home switch)
+      0x28: ADD0 (path address 0)
+      0x29: ADD1 (path address 1)
+      0x2A: ADD2 (path address 2)
+      0x2B: ADD3 (path address 3)
+      0x2C: JOG velocity 2
+    value:
+      invalid: 0
+      alarm_clearing_no: 0x07
+      alarm_clearing_nc: 0x87
+      enable_no: 0x08
+      enable_nc: 0x88
+      trigger_command_no: 0x20
+      trigger_command_nc: 0xA0
+      trigger_homing_no: 0x21
+      trigger_homing_nc: 0xA1
+      quick_stop_no: 0x22
+      quick_stop_nc: 0xA2
+      jog_plus_no: 0x23
+      jog_plus_nc: 0xA3
+      jog_minus_no: 0x24
+      jog_minus_nc: 0xA4
+      positive_limit_no: 0x25
+      positive_limit_nc: 0xA5
+      negative_limit_no: 0x26
+      negative_limit_nc: 0xA6
+      home_switch_no: 0x27
+      home_switch_nc: 0xA7
+      path_addr_0_no: 0x28
+      path_addr_0_nc: 0xA8
+      path_addr_1_no: 0x29
+      path_addr_1_nc: 0xA9
+      path_addr_2_no: 0x2A
+      path_addr_2_nc: 0xAA
+      path_addr_3_no: 0x2B
+      path_addr_3_nc: 0xAB
+      jog_velocity_2_no: 0x2C
+      jog_velocity_2_nc: 0xAC
+      min: 0
+      max: 65535
+      default: 0
+  - addr: 0x014B
+    name: di4
+    alt_names:
+      - Pr4.05
+      - Digital input 4
+    comment: >
+      Default is normal-open (N.O) type, it can be
+      set to normal-closed (N.C) type by setting
+      the corresponding port +0x80
+
+      0: invalid
+      7: alarm clearing
+      8: enable (also can be set by 0x00F)
+      0x20: Trigger command (CTRG)
+      0x21: Trigger homing
+      0x22: EMG (quick stop)
+      0x23: JOG+
+      0x24: JOG-
+      0x25: POT (positive limit)
+      0x26: NOT (negative limit)
+      0x27: ORG (home switch)
+      0x28: ADD0 (path address 0)
+      0x29: ADD1 (path address 1)
+      0x2A: ADD2 (path address 2)
+      0x2B: ADD3 (path address 3)
+      0x2C: JOG velocity 2
+    value:
+      invalid: 0
+      alarm_clearing_no: 0x07
+      alarm_clearing_nc: 0x87
+      enable_no: 0x08
+      enable_nc: 0x88
+      trigger_command_no: 0x20
+      trigger_command_nc: 0xA0
+      trigger_homing_no: 0x21
+      trigger_homing_nc: 0xA1
+      quick_stop_no: 0x22
+      quick_stop_nc: 0xA2
+      jog_plus_no: 0x23
+      jog_plus_nc: 0xA3
+      jog_minus_no: 0x24
+      jog_minus_nc: 0xA4
+      positive_limit_no: 0x25
+      positive_limit_nc: 0xA5
+      negative_limit_no: 0x26
+      negative_limit_nc: 0xA6
+      home_switch_no: 0x27
+      home_switch_nc: 0xA7
+      path_addr_0_no: 0x28
+      path_addr_0_nc: 0xA8
+      path_addr_1_no: 0x29
+      path_addr_1_nc: 0xA9
+      path_addr_2_no: 0x2A
+      path_addr_2_nc: 0xAA
+      path_addr_3_no: 0x2B
+      path_addr_3_nc: 0xAB
+      jog_velocity_2_no: 0x2C
+      jog_velocity_2_nc: 0xAC
+      min: 0
+      max: 65535
+      default: 0
+  - addr: 0x014D
+    name: di5
+    alt_names:
+      - Pr4.06
+      - Digital input 5
+    comment: >
+      Default is normal-open (N.O) type, it can be
+      set to normal-closed (N.C) type by setting
+      the corresponding port +0x80
+
+      0: invalid
+      7: alarm clearing
+      8: enable (also can be set by 0x00F)
+      0x20: Trigger command (CTRG)
+      0x21: Trigger homing
+      0x22: EMG (quick stop)
+      0x23: JOG+
+      0x24: JOG-
+      0x25: POT (positive limit)
+      0x26: NOT (negative limit)
+      0x27: ORG (home switch)
+      0x28: ADD0 (path address 0)
+      0x29: ADD1 (path address 1)
+      0x2A: ADD2 (path address 2)
+      0x2B: ADD3 (path address 3)
+      0x2C: JOG velocity 2
+    value:
+      invalid: 0
+      alarm_clearing_no: 0x07
+      alarm_clearing_nc: 0x87
+      enable_no: 0x08
+      enable_nc: 0x88
+      trigger_command_no: 0x20
+      trigger_command_nc: 0xA0
+      trigger_homing_no: 0x21
+      trigger_homing_nc: 0xA1
+      quick_stop_no: 0x22
+      quick_stop_nc: 0xA2
+      jog_plus_no: 0x23
+      jog_plus_nc: 0xA3
+      jog_minus_no: 0x24
+      jog_minus_nc: 0xA4
+      positive_limit_no: 0x25
+      positive_limit_nc: 0xA5
+      negative_limit_no: 0x26
+      negative_limit_nc: 0xA6
+      home_switch_no: 0x27
+      home_switch_nc: 0xA7
+      path_addr_0_no: 0x28
+      path_addr_0_nc: 0xA8
+      path_addr_1_no: 0x29
+      path_addr_1_nc: 0xA9
+      path_addr_2_no: 0x2A
+      path_addr_2_nc: 0xAA
+      path_addr_3_no: 0x2B
+      path_addr_3_nc: 0xAB
+      jog_velocity_2_no: 0x2C
+      jog_velocity_2_nc: 0xAC
+      min: 0
+      max: 65535
+      default: 0
+  - addr: 0x014F
+    name: di6
+    alt_names:
+      - Pr4.07
+      - Digital input 6
+    comment: >
+      Default is normal-open (N.O) type, it can be
+      set to normal-closed (N.C) type by setting
+      the corresponding port +0x80
+
+      0: invalid
+      7: alarm clearing
+      8: enable (also can be set by 0x00F)
+      0x20: Trigger command (CTRG)
+      0x21: Trigger homing
+      0x22: EMG (quick stop)
+      0x23: JOG+
+      0x24: JOG-
+      0x25: POT (positive limit)
+      0x26: NOT (negative limit)
+      0x27: ORG (home switch)
+      0x28: ADD0 (path address 0)
+      0x29: ADD1 (path address 1)
+      0x2A: ADD2 (path address 2)
+      0x2B: ADD3 (path address 3)
+      0x2C: JOG velocity 2
+    value:
+      invalid: 0
+      alarm_clearing_no: 0x07
+      alarm_clearing_nc: 0x87
+      enable_no: 0x08
+      enable_nc: 0x88
+      trigger_command_no: 0x20
+      trigger_command_nc: 0xA0
+      trigger_homing_no: 0x21
+      trigger_homing_nc: 0xA1
+      quick_stop_no: 0x22
+      quick_stop_nc: 0xA2
+      jog_plus_no: 0x23
+      jog_plus_nc: 0xA3
+      jog_minus_no: 0x24
+      jog_minus_nc: 0xA4
+      positive_limit_no: 0x25
+      positive_limit_nc: 0xA5
+      negative_limit_no: 0x26
+      negative_limit_nc: 0xA6
+      home_switch_no: 0x27
+      home_switch_nc: 0xA7
+      path_addr_0_no: 0x28
+      path_addr_0_nc: 0xA8
+      path_addr_1_no: 0x29
+      path_addr_1_nc: 0xA9
+      path_addr_2_no: 0x2A
+      path_addr_2_nc: 0xAA
+      path_addr_3_no: 0x2B
+      path_addr_3_nc: 0xAB
+      jog_velocity_2_no: 0x2C
+      jog_velocity_2_nc: 0xAC
+      min: 0
+      max: 65535
+      default: 0
+  - addr: 0x0151
+    name: di7
+    alt_names:
+      - Pr4.08
+      - Digital input 7
+    comment: >
+      Default is normal-open (N.O) type, it can be
+      set to normal-closed (N.C) type by setting
+      the corresponding port +0x80
+
+      0: invalid
+      7: alarm clearing
+      8: enable (also can be set by 0x00F)
+      0x20: Trigger command (CTRG)
+      0x21: Trigger homing
+      0x22: EMG (quick stop)
+      0x23: JOG+
+      0x24: JOG-
+      0x25: POT (positive limit)
+      0x26: NOT (negative limit)
+      0x27: ORG (home switch)
+      0x28: ADD0 (path address 0)
+      0x29: ADD1 (path address 1)
+      0x2A: ADD2 (path address 2)
+      0x2B: ADD3 (path address 3)
+      0x2C: JOG velocity 2
+    value:
+      invalid: 0
+      alarm_clearing_no: 0x07
+      alarm_clearing_nc: 0x87
+      enable_no: 0x08
+      enable_nc: 0x88
+      trigger_command_no: 0x20
+      trigger_command_nc: 0xA0
+      trigger_homing_no: 0x21
+      trigger_homing_nc: 0xA1
+      quick_stop_no: 0x22
+      quick_stop_nc: 0xA2
+      jog_plus_no: 0x23
+      jog_plus_nc: 0xA3
+      jog_minus_no: 0x24
+      jog_minus_nc: 0xA4
+      positive_limit_no: 0x25
+      positive_limit_nc: 0xA5
+      negative_limit_no: 0x26
+      negative_limit_nc: 0xA6
+      home_switch_no: 0x27
+      home_switch_nc: 0xA7
+      path_addr_0_no: 0x28
+      path_addr_0_nc: 0xA8
+      path_addr_1_no: 0x29
+      path_addr_1_nc: 0xA9
+      path_addr_2_no: 0x2A
+      path_addr_2_nc: 0xAA
+      path_addr_3_no: 0x2B
+      path_addr_3_nc: 0xAB
+      jog_velocity_2_no: 0x2C
+      jog_velocity_2_nc: 0xAC
+      min: 0
+      max: 65535
       default: 0
   - addr: 0x0157
     name: do1
@@ -25,18 +513,99 @@ holding_registers:
       - Pr4.11
       - Digital output 1
     comment: >
+      Default is normal-open (N.O) type,
+      it can be set to normal-closed (N.C) type
+      by setting the corresponding port +0x80
+
+      0: invalid
+      0x20: command completed
+      0x21: path completed
+      0x22: homing completed
+      0x23: in-position completed
+      0x24: brake output
+      0x25: alarm output
+    value:
+      invalid: 0
+      command_completed_no: 0x20
+      command_completed_nc: 0xA0
+      path_completed_no: 0x21
+      path_completed_nc: 0xA1
+      homing_completed_no: 0x22
+      homing_completed_nc: 0xA2
+      in_position_completed_no: 0x23
+      in_position_completed_nc: 0xA3
+      brake_output_no: 0x24
+      brake_output_nc: 0xA4
+      alarm_output_no: 0x25
+      alarm_output_nc: 0xA5
+      min: 0
+      max: 65535
+      default: 0
+  - addr: 0x0159
+    name: do2
+    alt_names:
+      - Pr4.12
+      - Digital output 2
+    comment: >
       Default is normal-open(N.O) type,
       it can be set to normal-closed(N.C) type
       by setting the corresponding port +0x80
 
-      0: invalid;
-      0x20: command completed;
-      0x21: path completed;
-      0x22: homing completed;
-      0x23: in-position completed;
-      0x24: brake output;
-      0x25: alarm output;
+      0: invalid
+      0x20: command completed
+      0x21: path completed
+      0x22: homing completed
+      0x23: in-position completed
+      0x24: brake output
+      0x25: alarm output
     value:
+      invalid: 0
+      command_completed_no: 0x20
+      command_completed_nc: 0xA0
+      path_completed_no: 0x21
+      path_completed_nc: 0xA1
+      homing_completed_no: 0x22
+      homing_completed_nc: 0xA2
+      in_position_completed_no: 0x23
+      in_position_completed_nc: 0xA3
+      brake_output_no: 0x24
+      brake_output_nc: 0xA4
+      alarm_output_no: 0x25
+      alarm_output_nc: 0xA5
+      min: 0
+      max: 65535
+      default: 0
+  - addr: 0x015B
+    name: do3
+    alt_names:
+      - Pr4.13
+      - Digital output 3
+    comment: >
+      Default is normal-open(N.O) type,
+      it can be set to normal-closed(N.C) type
+      by setting the corresponding port +0x80
+
+      0: invalid
+      0x20: command completed
+      0x21: path completed
+      0x22: homing completed
+      0x23: in-position completed
+      0x24: brake output
+      0x25: alarm output
+    value:
+      invalid: 0
+      command_completed_no: 0x20
+      command_completed_nc: 0xA0
+      path_completed_no: 0x21
+      path_completed_nc: 0xA1
+      homing_completed_no: 0x22
+      homing_completed_nc: 0xA2
+      in_position_completed_no: 0x23
+      in_position_completed_nc: 0xA3
+      brake_output_no: 0x24
+      brake_output_nc: 0xA4
+      alarm_output_no: 0x25
+      alarm_output_nc: 0xA5
       min: 0
       max: 65535
       default: 0
@@ -72,12 +641,212 @@ holding_registers:
       min: 0
       max: 500
       default: 10
+  - addr: 0x016D
+    name: alarm_detect
+    alt_names:
+      - Pr4.22
+      - Alarm detection selection
+    comment: >
+      Bit setting: =1: Yes; =0: No
+      bit0: over-current ( Cannot be changed)
+      bit1: over-voltage
+      bit3: ADC sampling failure
+      bit4: Locked shaft alarm
+      bit5: EEPROM alarm
+      bit6: Auto-tuning alarm
+    value:
+      min: 0
+      max: 65535
+      default: 0
+  - addr: 0x0177
+    name: bus_voltage
+    alt_names:
+      - Pr4.27
+      - Bus voltage
+    comment: "in 0.1V"
+    read_only: true
+    value:
+      min: 0
+      max: 65535
+  - addr: 0x0179
+    name: input_state
+    alt_names:
+      - Pr4.28
+      - Digital input state
+    comment: "Bit0-Bit6: DI1-DI7"
+    read_only: true
+    value:
+      min: 0
+      max: 65535
+  - addr: 0x017B
+    name: output_state
+    alt_names:
+      - Pr4.29
+      - Digital output state
+    comment: "Bit0-Bit2: DO1-DO3"
+    read_only: true
+    value:
+      min: 0
+      max: 65535
+  - addr: 0x0187
+    name: switch_state
+    alt_names:
+      - Pr4.35
+      - DIP switch state
+    read_only: true
+    value:
+      min: 0
+      max: 65535
+  - addr: 0x0197
+    name: locked_current_percentage
+    alt_names:
+      - Pr5.03
+      - Percentage of shaft locked current
+    comment: Keep default normally
+    value:
+      min: 0
+      max: 100
+      default: 100
+  - addr: 0x0199
+    name: locked_duration
+    alt_names:
+      - Pr5.04
+      - Shaft locked duration
+    comment: Keep default normally (in 1ms)
+    value:
+      min: 0
+      max: 1500
+      default: 200
+  - addr: 0x019F
+    name: locked_current_rising_time
+    alt_names:
+      - Pr5.07
+      - Rising time of shaft locked current
+    comment: Power on. Keep default normally (in 100ms)
+    value:
+      min: 1
+      max: 60
+      default: 1
+  - addr: 0x01A5
+    name: stop_time_max
+    alt_names:
+      - Pr5.10
+      - Max stop time
+    comment: Keep default normally (in ms)
+    value:
+      min: 100
+      max: 1000
+      default: 1000
+  - addr: 0x01AB
+    name: auto_tunning
+    alt_names:
+      - Pr5.13
+      - Auto-tuning at power on
+    comment: "0: disable, 1: enable"
+    value:
+      min: 0
+      max: 1
+      default: 1
+  - addr: 0x01BD
+    name: rs485_baud_rate
+    alt_names:
+      - Pr5.22
+      - RS485 baud rate
+    comment: >
+      0: 2400
+      1: 4800
+      2: 9600 (default)
+      3: 19200
+      4: 38400 (factory)
+      5: 57600
+      6: 115200
+      When SW6 and SW7 are all OFF, it can be
+      set by PC software
+    value:
+      B2400: 0
+      B4800: 1
+      B9600: 2
+      B19200: 3
+      B38400: 4
+      B57600: 5
+      B115200: 6
+      min: 0
+      max: 6
+      default: 4
+  - addr: 0x01BF
+    name: rs485_id
+    alt_names:
+      - Pr5.23
+      - RS485 ID
+    comment: When SW1 - SW5 are all ON, it can be set by PC software
+    value:
+      min: 0
+      max: 127
+      default: 1
+  - addr: 0x01C1
+    name: rs485_mode
+    alt_names:
+      - Pr5.24
+      - RS485 data type selection
+    comment: >
+      0: 8-bit data, even check, 2 stop bits
+      1: 8-bit data, odd check, 2 stop bits
+      2: 8-bit data, even check, 1 stop bit
+      3: 8-bit data, odd check, 1 stop bit
+      4: 8-bit data, no check, 1 stop bit
+      5: 8-bit data, no check, 2 stop bits
+    value:
+      min: 0
+      max: 11
+      default: 4
+  - addr: 0x01C3
+    name: rs485_ctrl_word
+    alt_names:
+      - Pr5.25
+      - RS485 control word
+    value:
+      min: 0
+      max: 32767
+      default: 0
+  - addr: 0x01C4
+    name: comm_bit_delay
+    alt_names:
+      - Pr5.26
+      - Communication bit delay
+    comment: in bits
+    value:
+      min: 0
+      max: 100
+      default: 35
+  - addr: 0x01D1
+    name: standby_switching_time
+    alt_names:
+      - Pr5.32
+      - Switching time to standby
+    comment: in ms
+    value:
+      min: 10
+      max: 65535
+      default: 200
+  - addr: 0x01D3
+    name: standby_current_percentage
+    alt_names:
+      - Pr5.33
+      - Standby current percentage
+    comment: Keep default normally
+    value:
+      min: 0
+      max: 100
+      default: 50
   - addr: 0x01E1
     name: jog_velocity
     alt_names:
       - Pr6.00
       - Jog velocity
-    comment: Jog velocity if triggered by RS485 in rounds per minute
+    comment: >
+      Jog velocity if triggered by RS485 in rounds per minute.
+
+      This JOG is triggered by RS485. For JOG triggered by IO, please use Pr8.40/8.41
     value:
       min: 0
       max: 5000
@@ -87,17 +856,34 @@ holding_registers:
     alt_names:
       - Pr6.01
       - Jog interval
-    comment: How long to jog once triggered in ms
+    comment: >
+      How long to jog once triggered in ms.
+
+      This JOG is triggered by RS485. For JOG triggered by IO, please use Pr8.40/8.41
     value:
       min: 0
       max: 10000
       default: 100
+  - addr: 0x01E5
+    name: jog_running_times
+    alt_names:
+      - Pr6.02
+      - Jog running times
+    comment: >
+      This JOG is triggered by RS485. For JOG triggered by IO, please use Pr8.40/8.41
+    value:
+      min: 0
+      max: 30000
+      default: 1
   - addr: 0x01E7
     name: jog_acc_dec
     alt_names:
       - Pr6.03
       - Jog acceleration and deceleration interval
-    comment: How long to accelerate to reach the desired jog velocity
+    comment: >
+      How long to accelerate to reach the desired jog velocity.
+
+      This JOG is triggered by RS485. For JOG triggered by IO, please use Pr8.40/8.41
     value:
       min: 0
       max: 10000
@@ -114,12 +900,98 @@ holding_registers:
       - Pr6.16
       - Firmware information
     read_only: true
-  - addr: 0x0203
-    name: model
+  - addr: 0x0239
+    name: curr_loop_ki
     alt_names:
-      - Pr7.00
-      - Motor model
+      - Pr7.04
+      - Current loop KI
+    comment: It is recommended to keep the factory value, when disable auto-tuning, can be modified
+    value:
+      min: 0
+      max: 1500
+      default: 300
+  - addr: 0x023B
+    name: curr_loop_kp
+    alt_names:
+      - Pr7.05
+      - Current loop KP
+    comment: It is recommended to keep the factory value, when disable auto-tuning, can be modified
+    value:
+      min: 0
+      max: 1024
+      default: 100
+  - addr: 0x1003
+    name: motion_status
+    alt_names:
+      - Motion status
+    comment: >
+      Bit0: 1 means "Fault"
+      Bit1: 1 means "Enable"
+      Bit2: 1 means "Running"
+      Bit4: 1 means "Command completed"
+      Bit5: 1 means "Path completed"
+      Bit6: 1 means "Homing completed"
     read_only: true
+  - addr: 0x1010
+    name: position_error_high
+    alt_names:
+      - Position following error (high 16 bit)
+    comment: in pulses
+    read_only: true:
+  - addr: 0x1011
+    name: position_error_low
+    alt_names:
+      - Position following error (low 16 bit)
+    comment: in pulses
+    read_only: true:
+  - addr: 0x1012
+    name: position_profile_high
+    alt_names:
+      - Position profile (high 16 bit)
+    comment: in pulses
+    read_only: true:
+  - addr: 0x1013
+    name: position_profile_low
+    alt_names:
+      - Position profile (low 16 bit)
+    comment: in pulses
+    read_only: true:
+  - addr: 0x1014
+    name: position_feedback_high
+    alt_names:
+      - Position feedback (high 16 bit)
+    comment: in pulses
+    read_only: true:
+  - addr: 0x1015
+    name: position_feedback_low
+    alt_names:
+      - Position feedback (low 16 bit)
+    comment: in pulses
+    read_only: true:
+  - addr: 0x1044
+    name: velocity_profile_high
+    alt_names:
+      - Velocity profile (high 16 bit)
+    comment: in pulses
+    read_only: true:
+  - addr: 0x1045
+    name: velocity_profile_low
+    alt_names:
+      - Velocity profile (low 16 bit)
+    comment: in pulses
+    read_only: true:
+  - addr: 0x1046
+    name: velocity_feedback_high
+    alt_names:
+      - Velocity feedback (high 16 bit)
+    comment: in pulses
+    read_only: true:
+  - addr: 0x1047
+    name: velocity_feedback_low
+    alt_names:
+      - Velocity feedback (low 16 bit)
+    comment: in pulses
+    read_only: true:
   - addr: 0x1801
     name: control
     alt_names:
@@ -134,6 +1006,14 @@ holding_registers:
       all_param_reset: 0x2233
       jog_cw: 0x4001
       jog_ccw: 0x4002
+  - addr: 0x1901
+    name: param_save_status
+    alt_names:
+      - Save parameter status word
+    comment: >
+      0x5555 means "Save successfully"
+      0xAAAA means "Failed to save"
+    read_only: true
   - addr: 0x2203
     name: cur_alarm
     alt_names:
@@ -155,3 +1035,73 @@ holding_registers:
       shaft_locking: 0x80
       auto_tuning: 0x100
       eeprom: 0x200
+  - addr: 0x600A
+    name: homing_mode
+    alt_names:
+      - Pr8.10
+      - Homing mode
+    comment: >
+      Bit0: homing direction (0: CCW, 1: CW)
+      Bit1: move to the specified point after homing (0: No, 1: Yes)
+      Bit2: homing type (0: Homing by detecting limit switch signal, 1: Homing by detecting Home Switch signal)
+      Note:
+        (1) Write 0x21 to the address 0x6002 to set the current point to zero position
+        (2) Write 1 to the bit2 of address 0x6000 can set to auto-homing after powering on
+  - addr: 0x600B
+    name: home_switch_position_high
+    alt_names:
+      - Pr8.11
+      - Home Switch position (high 16 bits)
+    comment: >
+      The Home Switch position on the coordinate system.
+      Pr8.11 is high 16 bits, and Pr8.12 is low 16 bits
+  - addr: 0x600C
+    name: home_switch_position_low
+    alt_names:
+      - Pr8.12
+      - Home Switch position (low 16 bits)
+    comment: >
+      The Home Switch position on the coordinate system.
+      Pr8.11 is high 16 bits, and Pr8.12 is low 16 bits
+  - addr: 0x600D
+    name: homing_stop_position_high
+    alt_names:
+      - Pr8.13
+      - Homing Stop position (high 16 bits)
+    comment: >
+      The motor moves to the Specified position after homing.
+      If bit1 of Pr8.10=1, the motor will move to specified absolute position.
+      Pr8.13 is high 16 bits, and Pr8.14 is low 16 bits.
+  - addr: 0x600E
+    name: homing_stop_position_low
+    alt_names:
+      - Pr8.14
+      - Homing Stop position (low 16 bits)
+    comment: >
+      The motor moves to the Specified position after homing.
+      If bit1 of Pr8.10=1, the motor will move to specified absolute position.
+      Pr8.13 is high 16 bits, and Pr8.14 is low 16 bits.
+  - addr: 0x600F
+    name: homing_velocity_high
+    alt_names:
+      - Pr8.15
+      - Homing high velocity
+    comment: The 1st segment velocity of homing (in RPMs)
+  - addr: 0x6010
+    name: homing_velocity_low
+    alt_names:
+      - Pr8.16
+      - Homing low velocity
+    comment: The 2nd segment velocity of homing (in RPMs)
+  - addr: 0x6011
+    name: homing_acc
+    alt_names:
+      - Pr8.17
+      - Homing acceleration
+    comment: in ms/1000rpm
+  - addr: 0x6012
+    name: homing_dec
+    alt_names:
+      - Pr8.18
+      - Homing deceleration
+    comment: in ms/1000rpm
