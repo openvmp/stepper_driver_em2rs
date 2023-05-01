@@ -14,11 +14,11 @@
 #include <string>
 
 #include "rclcpp/rclcpp.hpp"
+#include "remote_modbus/interface.hpp"
 #include "remote_stepper_driver/implementation.hpp"
-#include "ros2_modbus/interface.hpp"
 #include "std_msgs/msg/int32.hpp"
 
-namespace ros2_em2rs {
+namespace em2rs_driver {
 
 class Interface : public remote_stepper_driver::Implementation {
  public:
@@ -45,9 +45,9 @@ class Interface : public remote_stepper_driver::Implementation {
 
  private:
   int16_t velocity_last_ = 0x7FFF;
-  std::shared_ptr<ros2_modbus::Interface> prov_;
+  std::shared_ptr<remote_modbus::Interface> prov_;
 };
 
-}  // namespace ros2_em2rs
+}  // namespace em2rs_driver
 
 #endif  // OPENVMP_SD_EM2RS_INTERFACE_H

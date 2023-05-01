@@ -1,13 +1,6 @@
-# OpenVMP
+# ROS2 package for EM2RS Series stepper motor drivers
 
 [![License](./apache20.svg)](./LICENSE.txt)
-
-This package is a part of
-[the OpenVMP project](https://github.com/openvmp/openvmp).
-But it's designed to be universal.
-It's usable independently from the rest of OpenVMP if needed.
-
-## ROS2 package for EM2RS Series stepper motor drivers
 
 This packages controls stepper drivers using Modbus RTU over RS485.
 It is expected to support the following products:

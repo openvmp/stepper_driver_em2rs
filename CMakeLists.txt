@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(ros2_em2rs)
+project(em2rs_driver)
 
 # Compiler settings
 if(NOT CMAKE_CXX_STANDARD)
@@ -15,17 +15,17 @@ find_package(ament_cmake REQUIRED)
 find_package(ament_index_cpp REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(ros2_modbus REQUIRED)
-find_package(ros2_modbus_rtu REQUIRED)
+find_package(remote_modbus REQUIRED)
+find_package(remote_modbus_rtu REQUIRED)
 find_package(remote_actuator REQUIRED)
 find_package(remote_stepper_driver REQUIRED)
 
 # Logic shared by all targets
 include_directories(
   include
-  ${ros2_serial_INCLUDE_DIRS}
-  ${ros2_modbus_INCLUDE_DIRS}
-  ${ros2_modbus_rtu_INCLUDE_DIRS}
+  ${remote_serial_INCLUDE_DIRS}
+  ${remote_modbus_INCLUDE_DIRS}
+  ${remote_modbus_rtu_INCLUDE_DIRS}
   ${remote_actuator_INCLUDE_DIRS}
   ${remote_stepper_driver_INCLUDE_DIRS}
 )
@@ -37,9 +37,9 @@ set(project_SOURCE_FILES
 
 set(project_LIBRARIES
   ${rclcpp_LIBRARIES}
-  ${ros2_modbus_LIBRARIES}
-  ${ros2_modbus_rtu_LIBRARIES}
-  ${ros2_modbus_rtu_native_LIBRARIES}
+  ${remote_modbus_LIBRARIES}
+  ${remote_modbus_rtu_LIBRARIES}
+  ${remote_modbus_rtu_native_LIBRARIES}
   ${remote_actuator_LIBRARIES}
   ${remote_actuator_native_LIBRARIES}
   ${remote_stepper_driver_LIBRARIES}
@@ -49,7 +49,7 @@ set(project_LIBRARIES
 set(project_DEPENDENCIES
   ament_index_cpp
   rclcpp
-  ros2_modbus_rtu
+  remote_modbus_rtu
   remote_actuator
   remote_stepper_driver
 )

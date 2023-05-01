@@ -13,11 +13,11 @@
 #include <memory>
 #include <string>
 
+#include "em2rs_driver/interface.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "ros2_em2rs/interface.hpp"
-#include "ros2_serial/port.hpp"
+#include "remote_serial/port.hpp"
 
-namespace ros2_em2rs {
+namespace em2rs_driver {
 
 class Node : public rclcpp::Node {
  public:
@@ -27,6 +27,6 @@ class Node : public rclcpp::Node {
   std::shared_ptr<Interface> intf_;
 };
 
-}  // namespace ros2_em2rs
+}  // namespace em2rs_driver
 
 #endif  // OPENVMP_SD_EM2RS_NODE_H
